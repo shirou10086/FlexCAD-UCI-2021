@@ -1,0 +1,76 @@
+ <html>
+  <head>
+    <title>
+      holoplay.js tutorial
+    </title>
+  </head>
+
+  <body>
+    <!-- reference your own local copy of three.js -->
+    <script src="C:/Users/Jinli Duan/Downloads/Holoplayjs-1.0.3/holoplayjs/build/three.js"></script>
+    <script type="module">
+      // reference your own local copy of holoplay.js这里填写holoplay.js位置
+      import * as HoloPlay from 'C:/Users/Jinli Duan/Downloads/Holoplayjs-1.0.3/holoplayjs/build/holoplay.module.js';
+
+      // just a basic three.js scene, nothing special
+      const scene = new THREE.Scene();
+
+      // adding some lights to the scene
+      const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+      directionalLight.position.set(0, 1, 2);
+      scene.add(directionalLight);
+      const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.4);
+      scene.add(ambientLight);
+
+      // adding three cubes to the scene in different locations
+      for (let i = 0; i < 3; i++) {
+        const box = new THREE.Mesh(
+            new THREE.BoxBufferGeometry(0.05, 0.05, 0.05),
+            new THREE.MeshLambertMaterial({color: new THREE.Color().setHSL(i / 3, 1, 0.5)}));
+        box.position.setScalar(i - 1).multiplyScalar(0.05);
+        scene.add(box);
+      }
+
+      // the holoplay camera should be used like a THREE.PerspectiveCamera
+      const camera = new HoloPlay.Camera();
+
+      // the holoplay renderer should act as your THREE.WebGLRenderer
+      const renderer = new HoloPlay.Renderer();
+
+      // add the renderer's canvas to your web page (it will size to fill the page)
+      document.body.appendChild(renderer.domElement);
+
+      // the update function gets called every frame, thanks to requestAnimationFrame()
+      function update(time) {
+        requestAnimationFrame(update);
+
+        // render() draws the scene, just like THREE.WebGLRenderer.render()
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(update);
+
+      // HoloPlay.Buttons will emit events when the display's buttons are touched
+      const buttons = new HoloPlay.Buttons();
+      buttons.addEventListener('buttonPressed', (e) => {
+        switch (e.detail.name) {
+          case 'left':
+            camera.rotation.y -= 0.002;
+            break;
+          case 'right':
+            camera.rotation.y += 0.002;
+            break;
+          case 'square':
+            if (camera.position.z > 0.2) {
+              camera.position.z -= 0.01;
+            }
+            break;
+          case 'circle':
+            if (camera.position.z < 100) {
+              camera.position.z += 0.01;
+            }
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>

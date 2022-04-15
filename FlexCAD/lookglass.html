@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <title>
+      holoplay.js tutorial
+    </title>
+  </head>
+    
+  <body>
+    <!-- reference your own local copy of three.js -->
+    <script src="build/three.min.js"></script>
+    <script src="build/js/OrbitControls.js"></script>
+    <script src="build/js/TransformControls.js"></script>
+    <script type="module">  
+      const source = window.localStorage.getItem('jsonobj');
+      const jsonobjs = JSON.parse(source);
+      if (jsonobjs.length <= 0) {
+        alert('No data found, Please add data');
+        window.close();
+      }
+      // reference your own local copy of holoplay.js
+      import * as HoloPlay from './dist/holoplay.module.js';
+      var camera;
+      // just a basic three.js scene, nothing special
+      const scene = new THREE.Scene();
+
+      // adding some lights to the scene
+      const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+      directionalLight.position.set(0, 1, 2);
+      scene.add(directionalLight);
+      const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.4);
+      scene.add(ambientLight);
+
+      // adding three cubes to the scene in different locations
+      for (let i = 0; i < jsonobjs.length; i++) {
+        const obj = jsonobjs[i];
+        if(obj.type == "cube")
+          addCube(obj.position,obj.color);
+        else if(obj.type == "cylinder")
+          addCylinder(obj.position,obj.color);
+        else if(obj.type == "sphere")
+          addSphere(obj.position,obj.color);
+      }
+
+      // the holoplay renderer should act as your THREE.WebGLRenderer
+      const renderer = new HoloPlay.Renderer();
+
+      // the holoplay camera should be used like a THREE.PerspectiveCamera
+      console.log(renderer.domElement.width, renderer.domElement.height);
+      const aspect = renderer.domElement.width / renderer.domElement.height;
+      camera = new HoloPlay.Camera(50, aspect, 0.01, 30000);
+      camera.position.set( 1000, 500, 1000 );
+      camera.lookAt( 0, 0, 0 );
+
+      const orbit = new THREE.OrbitControls( camera, renderer.domElement );
+      orbit.update();
+      orbit.addEventListener( 'change', render );
+
+      const control = new THREE.TransformControls( camera, renderer.domElement );
+      control.addEventListener( 'change', render );
+      control.addEventListener( 'dragging-changed', function ( event ) {
+        orbit.enabled = ! event.value;
+      } );
+
+      // add the renderer's canvas to your web page (it will size to fill the page)
+      document.body.appendChild(renderer.domElement);
+
+      // the update function gets called every frame, thanks to requestAnimationFrame()
+      function update(time) {
+        requestAnimationFrame(update);
+
+        // render() draws the scene, just like THREE.WebGLRenderer.render()
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(update);
+
+      function render() {
+        renderer.render( scene, camera );
+      }
+
+      function addCube(pos,color)
+			{
+				const geometry = new THREE.BoxBufferGeometry( 10, 10, 10 );
+				const material = new THREE.MeshLambertMaterial({color:0xffffff});//.MeshLambertMaterial( { map: texture, transparent: true } );
+				const mesh = new THREE.Mesh( geometry, material );
+				mesh.typename = "cube";
+				if(pos!=null)
+				{
+					mesh.position.x = pos.x;
+					mesh.position.y = pos.y;
+					mesh.position.z = pos.z;
+				}
+				if(color!=null)
+				{
+					mesh.material.color.setHex('0x'+color);
+				}
+				scene.add(mesh);
+			}
+
+			function addSphere(pos,color)
+			{
+				const geometry = new THREE.SphereBufferGeometry( 10, 10, 10 );
+				const material = new THREE.MeshLambertMaterial({color:0xffffff});//new THREE.MeshLambertMaterial( { map: texture, transparent: true } );
+				const mesh = new THREE.Mesh( geometry, material );
+				mesh.typename = "sphere";
+				if(pos!=null)
+				{
+					mesh.position.x = pos.x;
+					mesh.position.y = pos.y;
+					mesh.position.z = pos.z;
+				}
+				if(color!=null)
+				{
+					mesh.material.color.setHex('0x'+color);
+				}
+				scene.add(mesh);
+			}
+
+			function addCylinder(pos,color)
+			{
+				const geometry = new THREE.CylinderBufferGeometry( 5, 5, 10, 32);
+				const material = new THREE.MeshLambertMaterial({color:0xffffff});//new THREE.MeshLambertMaterial( { map: texture, transparent: true } );
+				const mesh = new THREE.Mesh( geometry, material );
+				mesh.typename = "cylinder";
+				if(pos!=null)
+				{
+					mesh.position.x = pos.x;
+					mesh.position.y = pos.y;
+					mesh.position.z = pos.z;
+				}
+				if(color!=null)
+				{
+					mesh.material.color.setHex('0x'+color);
+				}
+				scene.add(mesh);
+			}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>
+      holoplay.js tutorial
+    </title>
+  </head>
+
+  <body>
+    <script src="/build/three.js"></script>
+    <script src="/build/holoplay.js"></script>
+    <script type="module">  
+
+      // just a basic three.js scene, nothing special
+      const scene = new THREE.Scene();
+
+      // adding some lights to the scene
+      const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+      directionalLight.position.set(0, 1, 2);
+      scene.add(directionalLight);
+      const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.4);
+      scene.add(ambientLight);
+
+      // adding three cubes to the scene in different locations
+      for (let i = 0; i < 3; i++) {
+        const box = new THREE.Mesh(
+            new THREE.BoxBufferGeometry(0.05, 0.05, 0.05),
+            new THREE.MeshLambertMaterial({color: new THREE.Color().setHSL(i / 3, 1, 0.5)}));
+        box.position.setScalar(i - 1).multiplyScalar(0.05);
+        scene.add(box);
+      }
+
+      // the holoplay camera should be used like a THREE.PerspectiveCamera
+      const camera = new HoloPlay.Camera();
+
+      // the holoplay renderer should act as your THREE.WebGLRenderer
+      const renderer = new HoloPlay.Renderer();
+
+      // add the renderer's canvas to your web page (it will size to fill the page)
+      document.body.appendChild(renderer.domElement);
+
+      // the update function gets called every frame, thanks to requestAnimationFrame()
+      function update(time) {
+        requestAnimationFrame(update);
+
+        // render() draws the scene, just like THREE.WebGLRenderer.render()
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(update);
+    </script>
+  </body>
+</html>

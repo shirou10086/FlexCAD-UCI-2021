@@ -1,0 +1,1 @@
+[{'type': 'cube', 'position': {'x': -512.3803765053965, 'y': 0, 'z': 0}, 'color': '14ff7a'}, {'type': 'sphere', 'position': {'x': 364.01744249625074, 'y': 0, 'z': 0}, 'color': '2693ff'}, {'type': 'cylinder', 'position': {'x': 0, 'y': 0, 'z': 204.02792953603716}, 'color': 'ff0099'}, {'type': 'cylinder', 'position': {'x': 0, 'y': 0, 'z': -311.4554645104389}, 'color': 'b5b20e'}]
