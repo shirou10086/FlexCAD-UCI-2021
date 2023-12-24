@@ -20,7 +20,7 @@ class User(UserMixin,db.Model):
 
     def set_data_loc(self,data_path):
         self.data_loc = data_path
-    
+
 #intialize all database
 with app.app_context():
     db.create_all()
@@ -70,15 +70,15 @@ def test():
     db.session.commit()
     return redirect("/")
 
-# @app.route('/up_file', methods=['GET', 'POST'])
-# def up_file():
-#     if request.method == "POST":
-#         file = request.files['file']
-#         #file_name = "test.csv"
-#         file_name = file.filename
-#         file.save(os.path.join('userfiles', file_name))
+@app.route('/up_file', methods=['GET', 'POST'])
+def up_file():
+    if request.method == "POST":
+        file = request.files['file']
+        #file_name = "test.csv"
+        file_name = file.filename
+        file.save(os.path.join('userfiles', file_name))
 
-#         return '上传成功'
+        return '上传成功'
 
 @app.route('/upjson', methods=['GET', 'POST'])
 def up_json():

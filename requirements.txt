@@ -1,0 +1,6 @@
+Flask
+numpy
+pandas
+gunicorn
+flask_sqlalchemy
+flask_login
