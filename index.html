@@ -258,7 +258,7 @@ $(function () {
 					lines.forEach((line) => {
 							const [x, y, z] = line.split(',').map((val) => parseFloat(val));
 							if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-									addPoint({x: x, y: y, z: z}, '0xffffff'); // 默认颜色为白色
+									addPoint({x: x, y: y, z: z}); // 默认颜色为白色
 							}
 					});
 					alert("Points have been added. Only the first three numeric columns are considered as x, y, z coordinates.");
