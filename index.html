@@ -101,6 +101,8 @@ $(function () {
 					// { id: 'id5', text: 'test2', icon: 'fa fa-star', expanded: true,},
 				]
             },
+						{ type: 'button', id: 'addPoint', text: 'Add Point', icon: 'fa fa-plus-circle' },
+						{ type: 'button', id: 'uploadCSV', text: 'Upload CSV', icon: 'fa fa-upload' },
         ],
         onClick(event) {
 			// console.log(event)
@@ -117,6 +119,14 @@ $(function () {
 			if(event.subItem.text == "Cube")
 			{
 				addCube();
+			}
+			else if (event.target === 'addPoint')
+			{
+				addPoint();
+			}
+			else if (event.target === 'uploadCSV')
+			{
+        $("#csvFileInput").click(); // 触发隐藏的文件输入
 			}
 			else if(event.subItem.text == "Sphere")
 			{
@@ -140,7 +150,7 @@ $(function () {
 			}
         }
     });
-
+	$("body").append('<input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="uploadCSV(event)">');
 	$('#color').w2field('color');
 	$('#color').change(function(){
 		changeColor('0x'+$('#color').val());
@@ -194,7 +204,39 @@ $(function () {
 				curObj = mesh;
 				saveLocal()
 			}
+			function addPoint() {
+					let x = parseFloat(document.getElementById('posx').value);
+					let y = parseFloat(document.getElementById('posy').value);
+					let z = parseFloat(document.getElementById('posz').value);
+					let color = document.getElementById('color').value;
 
+					if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
+							addSphere({x: x, y: y, z: z}, color, 0.1); // 0.1 is the radius of the sphere
+					} else {
+							alert("Please enter valid numeric values for x, y, z");
+					}
+			}
+
+			function uploadCSV(event) {
+					const file = event.target.files[0];
+					const reader = new FileReader();
+					reader.onload = function(e) {
+							const text = e.target.result;
+							processCSV(text);
+					};
+					reader.readAsText(file);
+			}
+
+			function processCSV(csvText) {
+					const lines = csvText.split('\n');
+					lines.forEach((line) => {
+							const [x, y, z] = line.split(',').map((val) => parseFloat(val));
+							if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
+									addSphere({x: x, y: y, z: z}, '0xffffff', 0.1); // 默认颜色为白色
+							}
+					});
+					alert("Points have been added. Only the first three numeric columns are considered as x, y, z coordinates.");
+			}
 			function addSphere(pos,color)
 			{
 				//const texture = new THREE.TextureLoader().load( 'textures/crate.gif', render );
