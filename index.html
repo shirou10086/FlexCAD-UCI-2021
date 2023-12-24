@@ -211,7 +211,7 @@ $(function () {
 					let color = document.getElementById('color').value;
 
 					if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-							addSphere({x: x, y: y, z: z}, color, 0.1); // 0.1 is the radius of the sphere
+							addSphere({x: x, y: y, z: z}, color, 1); // 0.1 is the radius of the sphere
 					} else {
 							alert("Please enter valid numeric values for x, y, z");
 					}
