@@ -204,17 +204,29 @@ $(function () {
 				curObj = mesh;
 				saveLocal()
 			}
-			function addPoint() {
-					let x = parseFloat(document.getElementById('posx').value);
-					let y = parseFloat(document.getElementById('posy').value);
-					let z = parseFloat(document.getElementById('posz').value);
-					let color = document.getElementById('color').value;
+			function addPoint(pos,color)
+			{
+				//const texture = new THREE.TextureLoader().load( 'textures/crate.gif', render );
+				//texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
-					if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-							addSphere({x: x, y: y, z: z}, color, 1); // 0.1 is the radius of the sphere
-					} else {
-							alert("Please enter valid numeric values for x, y, z");
-					}
+				const geometry = new THREE.SphereGeometry( 1, 1, 1 );
+				const material = new THREE.MeshLambertMaterial({color:0xffffff});//new THREE.MeshLambertMaterial( { map: texture, transparent: true } );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.typename = "sphere";
+				if(pos!=null)
+				{
+					mesh.position.x = pos.x;
+					mesh.position.y = pos.y;
+					mesh.position.z = pos.z;
+				}
+				if(color!=null)
+				{
+					mesh.material.color.setHex('0x'+color);
+				}
+				scene.add(mesh);
+				control.attach( mesh );
+				curObj = mesh;
+				saveLocal()
 			}
 
 			function uploadCSV(event) {
@@ -232,7 +244,7 @@ $(function () {
 					lines.forEach((line) => {
 							const [x, y, z] = line.split(',').map((val) => parseFloat(val));
 							if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-									addSphere({x: x, y: y, z: z}, '0xffffff', 0.1); // 默认颜色为白色
+									addPoint({x: x, y: y, z: z}, '0xffffff'); // 默认颜色为白色
 							}
 					});
 					alert("Points have been added. Only the first three numeric columns are considered as x, y, z coordinates.");
