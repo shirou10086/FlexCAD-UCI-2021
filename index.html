@@ -401,7 +401,6 @@ $(function () {
 				for(var i=0;i<scene.children.length;i++){
 					var obj = scene.children[i];
 					if(obj.isMesh){
-						console.log(obj);
 						var meshattr = {type:obj.typename,position:obj.position,color:obj.material.color.getHexString()};
 						jsonobj.push(meshattr);
 					}
