@@ -224,6 +224,27 @@ $(function () {
 		    saveLocal()
 			}
 
+			function uploadCSV(event) {
+			    console.log("uploadCSV function called"); // 确认函数被调用
+			    const file = event.target.files[0];
+			    if (!file) {
+			        console.log("No file selected");
+			        return;
+			    }
+
+			    const reader = new FileReader();
+			    reader.onload = function(e) {
+			        console.log("FileReader onload triggered"); // 确认文件读取完成
+			        const text = e.target.result;
+			        processCSV(text);
+			    };
+			    reader.onerror = function() {
+			        console.error("Error reading file");
+			    };
+			    reader.readAsText(file);
+			}
+
+
 			function processCSV(csvText) {
 			    const lines = csvText.split('\n');
 			    lines.forEach((line) => {
@@ -252,18 +273,6 @@ $(function () {
 			        }
 			    });
 			    alert("Points have been added with size and color.");
-			}
-
-
-			function processCSV(csvText) {
-					const lines = csvText.split('\n');
-					lines.forEach((line) => {
-							const [x, y, z] = line.split(',').map((val) => parseFloat(val));
-							if (!isNaN(x) && !isNaN(y) && !isNaN(z)) {
-									addPoint({x: x, y: y, z: z}); // 默认颜色为白色
-							}
-					});
-					alert("Points have been added. Only the first three numeric columns are considered as x, y, z coordinates.");
 			}
 			function addSphere(pos,color)
 			{
