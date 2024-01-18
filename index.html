@@ -212,7 +212,7 @@ $(function () {
 				//texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     		console.log("addPoint function called");
 				const geometry = new THREE.SphereGeometry( size, 32, 32 );
-				const material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
+				const material = new THREE.MeshLambertMaterial({ color: color });
 				var mesh = new THREE.Mesh( geometry, material );
 				mesh.typename = "sphere";
 				mesh.position.x = pos.x;
@@ -259,16 +259,15 @@ $(function () {
 			        let color;
 			        switch (variety) {
 			            case 'Setosa':
-			                color = '#ff0000'; // 红色
+			                color = '0xff0000'; // 红色
+											console.log(`Variety: ${color}`);
 			                break;
 			            case 'Versicolor':
-			                color = '#ffff00'; // 黄色
+			                color = '0xffff00'; // 黄色
 			                break;
 			            case 'Virginica':
-			                color = '#0000ff'; // 蓝色
+			                color = '0x0000ff'; // 蓝色
 			                break;
-			            default:
-			                color = '#ffffff'; // 默认颜色（白色）
 			        }
 			        if (!isNaN(x) && !isNaN(y) && !isNaN(z) && !isNaN(size)) {
 			            addPoint({ x: x, y: y, z: z }, size, color);
