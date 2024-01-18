@@ -249,9 +249,9 @@ $(function () {
 			    const lines = csvText.split('\n');
 			    lines.forEach((line) => {
 			        const values = line.split(',');
-			        const x = parseFloat(values[0])*200;
-			        const y = parseFloat(values[1])*200;
-			        const z = parseFloat(values[2])*200;
+			        const x = parseFloat(values[0])*100;
+			        const y = parseFloat(values[1])*100;
+			        const z = parseFloat(values[2])*100;
 			        const size = parseFloat(values[3]) * 10;
 			        const variety = values[4].trim();
 			        let color;
