@@ -256,19 +256,17 @@ $(function () {
 			        const variety = values[4].trim();
 							console.log(`Variety: ${variety}`); // 调试：打印 variety 值
 
-			        let color;
-			        switch (variety) {
-			            case 'Setosa':
-			                color = '0xff0000'; // 红色
-											console.log(`Variety: ${color}`);
-			                break;
-			            case 'Versicolor':
-			                color = '0xffff00'; // 黄色
-			                break;
-			            case 'Virginica':
-			                color = '0x0000ff'; // 蓝色
-			                break;
+			
+			        let color = '#ffffff'; // 默认颜色（白色）
+			        if (variety === 'Setosa') {
+			            color = '#ff0000'; // 红色
+			        } else if (variety === 'Versicolor') {
+			            color = '#ffff00'; // 黄色
+			        } else if (variety === 'Virginica') {
+			            color = '#0000ff'; // 蓝色
 			        }
+
+			        console.log(`Color: ${color}`); // 调试：打印颜色
 			        if (!isNaN(x) && !isNaN(y) && !isNaN(z) && !isNaN(size)) {
 			            addPoint({ x: x, y: y, z: z }, size, color);
 			        }
