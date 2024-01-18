@@ -212,7 +212,7 @@ $(function () {
 				//texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     		console.log("addPoint function called");
 				const geometry = new THREE.SphereGeometry( size, 32, 32 );
-				const material = new THREE.MeshLambertMaterial({color:color});//new THREE.MeshLambertMaterial( { map: texture, transparent: true } );
+				const material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
 				var mesh = new THREE.Mesh( geometry, material );
 				mesh.typename = "sphere";
 				mesh.position.x = pos.x;
