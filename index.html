@@ -206,7 +206,7 @@ $(function () {
 				curObj = mesh;
 				saveLocal()
 			}
-			function addPoint(pos,size = 10, color = '0xffffff')
+			function addPoint(pos,size = 10, color = '#ffffff')
 			{
 				//const texture = new THREE.TextureLoader().load( 'textures/crate.gif', render );
 				//texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -268,7 +268,7 @@ $(function () {
 			                color = '#0000ff'; // 蓝色
 			                break;
 			            default:
-			                color = '0xffffff'; // 默认颜色（白色）
+			                color = '#ffffff'; // 默认颜色（白色）
 			        }
 			        if (!isNaN(x) && !isNaN(y) && !isNaN(z) && !isNaN(size)) {
 			            addPoint({ x: x, y: y, z: z }, size, color);
