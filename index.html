@@ -249,9 +249,9 @@ $(function () {
 			    const lines = csvText.split('\n');
 			    lines.forEach((line) => {
 			        const values = line.split(',');
-			        const x = parseFloat(values[0])*100;
-			        const y = parseFloat(values[1])*100;
-			        const z = parseFloat(values[2])*100;
+			        const x = parseFloat(values[0])*80;
+			        const y = parseFloat(values[1])*80;
+			        const z = parseFloat(values[2])*80;
 			        const size = parseFloat(values[3]) * 10;
 			        const variety = values[4].trim();
 							console.log(`Variety: ${variety}`); // 调试：打印 variety 值
