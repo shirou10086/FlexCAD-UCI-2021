@@ -9,18 +9,20 @@ opportunities for collaborative research and education across various discipline
 ## Features
 - **3D Object Manipulation**: Users can add and interact with 3D objects like cubes, cylinders, and spheres.
 - **Data Visualization**: Facilitates the conversion of data points from CSV files into visual 3D elements in real-time.
-- **Property Editing**: Allows for the modification of properties of 3D objects such as position (x, y, z), color, and more.
+- **3d model Editing**: Allows for the modification of properties of 3D objects such as position (x, y, z), color, and more.
 - **Local and Server Storage**: Provides options to save the current state locally or on the server.
 - **FPS Testing**: Includes functionality to test frames per second (FPS) in the 3D environment.
+- **Holographic Display**: Includes functionality to present Holographic display through Holoplay.js on Looking Glass
 
 ## Prerequisites
 - Web browser with WebGL support.
-- For development, a basic understanding of HTML, CSS, and JavaScript is required.
 
-## Installation
+## Hardware Compatibility
+- For our demonstration, we utilized the Looking Glass 32" display. DataViz3D is also compatible with other visualization hardware from Looking Glass Factory that supports holoplay.js.
+
+## Local Installation
 1. Clone or download the repository to your local machine.
-2. Ensure you have the required dependencies (listed in the `Dependencies` section below).
-3. Open the `index.html` file in a web browser to start using the application.
+2. Install flask and run app.py
 
 ## Dependencies
 - Three.js (included in `/build/three.min.js`)
